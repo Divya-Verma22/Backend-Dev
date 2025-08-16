@@ -1,32 +1,24 @@
 const express = require('express');
-const  mongoose  = require('mongoose');
- 
-
 const app = express(); // ✅ create express app
+
+require('dotenv').config();
+const PORT = process.env.PORT || 4000;
+
 app.use(express.json());
 
-app.listen(8000, () => {
-    console.log("Server running at port 8000");
+const todoRoutes = require('./routes/todos');
+
+//mount
+app.use("/api/v1" , todoRoutes);
+
+
+app.listen(PORT, ()=>{
+    console.log(`running on port ${PORT}`);
 });
 
-// GET route
-app.get('/', (req, res) => {
-    res.send("hello world");
-});
+const dbconnect = require('./config/database');
+dbconnect();
 
-// POST route
-app.post('/api/car', (req, res) => {
-    const { name, brand } = req.body;
-    console.log(name, brand); // Shows in terminal
-
-    res.json({
-        message: "Data received successfully",
-        name: name,
-        brand: brand
-    });
-});
-mongoose.connect("mongodb://localhost:27017/myDatabase").then(()=>{
-    console.log("mongoDb connect");
-}).catch((err)=>{
-    console.log("not connect" , err);
+app.get('/' , (req,res)=>{
+    res.send(`<h1>Hii i am rozy</h1>`);
 })
