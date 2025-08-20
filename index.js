@@ -1,24 +1,30 @@
 const express = require('express');
-const app = express(); // ✅ create express app
+
+const app = express();
 
 require('dotenv').config();
-const PORT = process.env.PORT || 4000;
-
-app.use(express.json());
-
-const todoRoutes = require('./routes/todos');
-
-//mount
-app.use("/api/v1" , todoRoutes);
+PORT = process.env.PORT || 5000;
 
 
-app.listen(PORT, ()=>{
-    console.log(`running on port ${PORT}`);
+app.listen(PORT , ()=>{
+    console.log(`connect at port ${PORT}`);
+
 });
 
-const dbconnect = require('./config/database');
-dbconnect();
+// midddleware
+app.use(express.json());
 
-app.get('/' , (req,res)=>{
-    res.send(`<h1>Hii i am rozy</h1>`);
+const blog = require("./Blog/routes/blog");
+//mount
+app.use("/api/v1" , blog);
+
+//database
+const dbConnect = require('./Blog/config/database');
+dbConnect();
+
+app.get('/get' , (req,res)=>{
+    res.send(`<h1>  this is home page </h1>`)
 })
+
+
+

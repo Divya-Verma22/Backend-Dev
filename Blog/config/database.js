@@ -10,7 +10,7 @@ const dbconnect = () => {
     }).catch((err)=>{
         console.log("error", err);
           process.exit(1);
-    })
+    });
 
 }
 module.exports = dbconnect;
