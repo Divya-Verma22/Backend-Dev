@@ -19,7 +19,7 @@ const blog = require("./Blog/routes/blog");
 app.use("/api/v1" , blog);
 
 //database
-const dbConnect = require('./Blog/config/database');
+const dbConnect = require('./Blog/config/database')
 dbConnect();
 
 app.get('/get' , (req,res)=>{
